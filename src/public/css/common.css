@@ -1,0 +1,98 @@
+.header {
+    background: black;
+}
+
+.header__inner {
+    margin: 0 auto;
+    padding: 20px 25px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header__logo {
+    margin-top: 5px;
+}
+
+.header__search-text {
+    width: 500px;
+    height: 50px;
+    font-size: 24px;
+    font-weight: 400;
+    border: none;
+    border-radius: 5px;
+    padding-left: 30px;
+}
+
+.header__search-text::placeholder {
+    color: black;
+    opacity: 1;
+}
+
+.header__nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header__login-button,
+.header__mypage-button {
+    text-decoration: none;
+    color: white;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.header__sell-button {
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: 400;
+    background-color: white;
+    color: black;
+    width: 100px;
+    height: 50px;
+    text-align: center;
+    border-radius: 4px;
+    padding-top: 5px;
+}
+
+.header__logout-button {
+    background-color: black;
+    border: none;
+    color: white;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+@media screen and (min-width: 768px) and (max-width: 850px) {
+    .header__inner {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .header__search-text {
+        width: 300px;
+        height: 40px;
+        font-size: 20px;
+        margin: 10px 0;
+    }
+
+    .header__nav {
+        gap: 10px;
+    }
+
+    .header__login-button,
+    .header__mypage-button,
+    .header__sell-button,
+    .header__logout-button {
+        font-size: 18px;
+        white-space: nowrap;
+    }
+
+    .header__sell-button {
+        width: auto;
+        height: auto;
+        padding: 3px 15px;
+    }
+}

@@ -1,0 +1,183 @@
+.sell-form__content {
+    max-width: 1515px;
+    margin: 0 auto;
+}
+
+.sell-form__title h2 {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.sell-form__form {
+    width: 50%;
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
+
+.sell-form__section {
+    margin-bottom: 60px;
+}
+
+.sell-form__section label {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.image-upload {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 50px 0;
+    border: 1px dotted #5F5F5F;
+    border-radius: 4px;
+}
+
+.image-upload input[type="file"] {
+    display: none;
+}
+
+.image-upload label {
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: white;
+    color: #FF5655;
+    font-weight: 700;
+    border: 2px solid #FF5555;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.sell-form__section h2 {
+    font-size: 30px;
+    font-weight: 700;
+    color: #5F5F5F;
+    border-bottom: 1px solid #5F5F5F;
+}
+
+.category {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 40px 0;
+}
+
+.category__item input[type="checkbox"] {
+    display: none;
+}
+
+.category__item label {
+    display: inline-block;
+    border: 2px solid #FF5655;
+    border-radius: 200px;
+    padding: 5px 15px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #FF5655;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.category__item label:hover {
+    background-color: rgba(255, 86, 85, 0.1);
+}
+
+.category__item input[type="checkbox"]:checked+label {
+    background-color: #FF5655;
+    color: #FFFFFF; }
+
+.select {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.select select {
+    width: 100%;
+    height: 45px;
+    appearance: none;
+    border: 1px solid #5F5F5F;
+    font-size: 16px;
+    font-weight: 700;
+    color: #5F5F5F;
+    padding-left: 20px;
+}
+
+.select option {
+    background-color: #636769;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.select::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 15px solid #5F5F5F;
+}
+
+
+.sell-form__section-explanation {
+    display: flex;
+    flex-direction: column;
+}
+
+.sell-form__section-explanation input{
+    height: 45px;
+    margin-bottom: 20px;
+}
+.sell-form__section--input-wrap {
+    position: relative;
+}
+
+.sell-form__section--input-wrap input {
+    width: 100%;
+    height: 45px;
+    margin-bottom: 20px;
+    padding-left: 30px;
+}
+
+.sell-form__section--input-wrap .yen {
+    position: absolute;
+    top: 35%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: black;
+    font-size: 24px;
+    font-weight: 700;
+    pointer-events: none;
+}
+
+.sell-form__section-explanation textarea {
+    width: 100%;
+    height: 125px;
+    margin-bottom: 20px;
+}
+
+.sell-form__button-primary {
+    width: 100%;
+    height: 60px;
+    background-color: #FF5555;
+    border-radius: 5px;
+    border: none;
+    color: #FFFFFF;
+    font-size: 26px;
+    font-weight: 700;
+    cursor: pointer;
+    margin: 50px 0 100px 0;
+}
+
+@media screen and (min-width: 768px) and (max-width: 850px) {
+    .sell-form__form {
+        width: 60%;
+    }
+}
