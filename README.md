@@ -33,11 +33,18 @@
 - 認証機能のバックエンドはFortifyが提供し、フロントはBladeテンプレートで実装しています。
 - バリデーションはフォームリクエストを使用しています。
 
-# ダミーデータ作成方法
+## ダミーデータ作成方法
 
 開発環境で以下コマンドを実行してダミーデータを作成してください。
 
 - php artisan db:seed
 - php artisan db:seed --class=ItemSeeder
 
+## テスト方法
+
+- php artisan test
+
+## ER図
+
+![ER図](images/flea-market.png)
 
