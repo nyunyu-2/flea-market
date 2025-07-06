@@ -44,7 +44,4 @@
 
 - php artisan test
 
-## ER図
-
-![ER図](public/images/flea-market.png)
 
