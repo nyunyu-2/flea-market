@@ -46,5 +46,5 @@
 
 ## ER図
 
-![ER図](images/flea-market.png)
+![ER図](public/images/flea-market.png)
 
