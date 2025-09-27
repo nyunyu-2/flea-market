@@ -22,6 +22,7 @@ class ItemSeeder extends Seeder
 
         $items = [
             [
+                'user_id' => 1,
                 'name' => '腕時計',
                 'brand' =>'TOKEI',
                 'price' => 15000,
@@ -30,6 +31,7 @@ class ItemSeeder extends Seeder
                 'status' => '良好',
             ],
             [
+                'user_id' => 1,
                 'name' => 'HDD',
                 'brand' =>'ハードディスク',
                 'price' => 5000,
@@ -38,6 +40,7 @@ class ItemSeeder extends Seeder
                 'status' => '目立った傷や汚れなし',
             ],
             [
+                'user_id' => 1,
                 'name' => '玉ねぎ3束',
                 'brand' =>'野菜',
                 'price' => 300,
@@ -46,6 +49,7 @@ class ItemSeeder extends Seeder
                 'status' => 'やや傷や汚れあり',
             ],
             [
+                'user_id' => 1,
                 'name' => '革靴',
                 'brand' =>'くつ',
                 'price' => 4000,
@@ -54,6 +58,7 @@ class ItemSeeder extends Seeder
                 'status' => '状態が悪い',
             ],
             [
+                'user_id' => 1,
                 'name' => 'ノートPC',
                 'brand' =>'DELL',
                 'price' => 45000,
@@ -62,6 +67,7 @@ class ItemSeeder extends Seeder
                 'status' => '良好',
             ],
             [
+                'user_id' => 2,
                 'name' => 'マイク',
                 'brand' =>'YAMAHA',
                 'price' => 8000,
@@ -70,6 +76,7 @@ class ItemSeeder extends Seeder
                 'status' => '目立った傷や汚れなし',
             ],
             [
+                'user_id' => 2,
                 'name' => 'ショルダーバッグ',
                 'brand' =>'UNIQLO',
                 'price' => 3500,
@@ -78,6 +85,7 @@ class ItemSeeder extends Seeder
                 'status' => 'やや傷や汚れあり',
             ],
             [
+                'user_id' => 2,
                 'name' => 'タンブラー',
                 'brand' =>'ニトリ',
                 'price' => 2000,
@@ -86,6 +94,7 @@ class ItemSeeder extends Seeder
                 'status' => '状態が悪い',
             ],
             [
+                'user_id' => 2,
                 'name' => 'コーヒーミル',
                 'brand' =>'ニトリ',
                 'price' => 3000,
@@ -94,6 +103,7 @@ class ItemSeeder extends Seeder
                 'status' => '良好',
             ],
             [
+                'user_id' => 2,
                 'name' => 'メイクセット',
                 'brand' =>'DIOR',
                 'price' => 2500,
@@ -104,7 +114,7 @@ class ItemSeeder extends Seeder
         ];
 
         foreach ($items as $itemData) {
-            $item = \App\Models\Item::create(array_merge($itemData, ['user_id' => $user->id]));
+            $item = \App\Models\Item::create($itemData);
 
             $item->categories()->attach(
                 $categories->random(rand(1, 3))->pluck('id')->toArray()

@@ -26,6 +26,7 @@ class ProfileRequest extends FormRequest
     {
         return [
             'image' => 'nullable|image|max:2048',
+            'profile_image' => 'nullable|string',
             'username' => 'nullable|string|max:255',
             'zipcode' => 'required|regex:/^\d{3}-\d{4}$/',
             'address' => 'nullable|string|max:255',

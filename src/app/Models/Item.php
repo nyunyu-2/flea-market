@@ -51,6 +51,11 @@ class Item extends Model
         return $this->hasOne(\App\Models\Purchase::class);
     }
 
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class);
+    }
+
     public function getIsSoldAttribute()
     {
         return (bool)$this->attributes['is_sold'];

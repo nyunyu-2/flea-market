@@ -7,6 +7,9 @@ use App\Models\Purchase;
 use Illuminate\Http\Request;
 use App\Http\Requests\PurchaseRequest;
 use App\Http\Requests\AddressRequest;
+use App\Models\Trade;
+use App\Mail\TradeCompletedMail;
+use Illuminate\Support\Facades\Mail;
 
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
@@ -91,6 +94,37 @@ class PurchaseController extends Controller
         return redirect()->route('items.index');
     }
 
+    public function handleSuccess($item_id)
+    {
+        $user = Auth::user();
+        $item = Item::findOrFail($item_id);
+
+        // --- ここで Purchase 作成 ---
+        $purchase = Purchase::create([
+            'user_id' => $user->id,
+            'item_id' => $item->id,
+            'zipcode' => $user->zipcode,
+            'address' => $user->address,
+            'building' => $user->building,
+            'status'  => 'trading',
+        ]);
+
+        // --- ここで Trade 作成 ---
+        $trade = Trade::create([
+            'purchase_id' => $purchase->id,
+        ]);
+
+        $purchase->trade_id = $trade->id;
+        $purchase->save();
+
+        $item->is_sold = true;
+        $item->save();
+
+        // チャット画面へリダイレクト
+        return redirect()->route('trades.show',  ['purchase' => $purchase]);
+    }
+
+
     public function editAddress($item_id)
     {
         $user = auth()->user();
@@ -109,4 +143,44 @@ class PurchaseController extends Controller
 
         return redirect()->route('purchase.show', ['item' => $item_id]);
     }
+
+    public function rate(Request $request, Purchase $purchase)
+    {
+        $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+            'comment' => 'nullable|string|max:1000',
+        ]);
+
+        $userId = auth()->id();
+
+        if ($userId === $purchase->user_id) {
+            $purchase->buyer_rating = $request->rating;
+            $purchase->buyer_comment = $request->comment;
+            $purchase->status = 'buyer_completed';
+
+            $purchase->save();
+
+            Mail::to($purchase->item->user->email)
+                ->send(new TradeCompletedMail($purchase));
+        }
+        elseif ($userId === $purchase->item->user_id) {
+            if ($purchase->status === 'buyer_completed' && is_null($purchase->seller_rating)) {
+                $purchase->seller_rating = $request->rating;
+                $purchase->seller_comment = $request->comment;
+                // 評価が完了したら status を completed に変更
+                $purchase->status = 'completed';
+                $purchase->save();
+            } else {
+                abort(403, '評価できません。');
+            }
+
+            $purchase->save();
+        } else {
+            abort(403, 'この取引の関係者ではありません。');
+        }
+
+        return redirect()->route('items.index')
+                        ->with('success', '評価を送信しました。');
+    }
+
 }

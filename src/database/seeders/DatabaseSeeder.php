@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
 
         if (app()->environment('local')) {
             $this->call([
-                ItemSeeder::class, // ダミーデータ
+                UserSeeder::class,
+                ItemSeeder::class,
             ]);
         }
     }

@@ -11,6 +11,14 @@
     gap: 20px;
 }
 
+.mypage__profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 50px;
+    align-items: center;
+}
+
 .mypage__profile-avatar {
     width: 150px;
     height: 150px;
@@ -21,7 +29,30 @@
 .mypage__profile-username {
     font-size: 36px;
     font-weight: 700;
-    padding-left: 50px;
+}
+
+.mypage__profile-rating {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 40px;
+}
+
+.mypage__profile-rating .star {
+    color: #ccc;
+    margin-right: 4px;
+    transition: color 0.2s;
+}
+
+.mypage__profile-rating .star.filled {
+    color: #FFF048;
+}
+
+.mypage__profile-rating .rating-number {
+    margin-left: 8px;
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
 }
 
 .mypage__profile-edit-button {
@@ -51,10 +82,27 @@
     color: #5F5F5F;
     font-size: 24px;
     font-weight: 700;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .mypage__tabs-title a.active {
     color: red;
+}
+
+.tab-badge {
+    background-color: red;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    width: 26px;
+    height: 26px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .mypage__products {
@@ -94,6 +142,33 @@
     background: #fff;
     border-radius: 4px;
     height: 100%;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+
+    position: relative;
+}
+
+.mypage__item-card-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+}
+
+.mypage__item-card-badge .badge {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #FF0000;
+    color: white;
+    border-radius: 50%;
+    line-height: 1;
+    text-align: center;
 }
 
 .mypage__item-card img,
@@ -115,6 +190,9 @@
     font-size: 25px;
     font-weight: 400;
 }
+
+
+
 
 @media screen and (min-width: 768px) and (max-width: 850px) {
     .mypage__profile-section {

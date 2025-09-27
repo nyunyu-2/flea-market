@@ -1,0 +1,371 @@
+.header {
+    background: black;
+}
+
+.header__inner {
+    padding: 20px 25px;
+    max-width: 1515px;
+    margin: 0 auto;
+}
+
+.trade {
+    display: flex;
+    height: 100vh;
+    margin: 0;
+}
+
+.trade-sidebar {
+    background-color: #868686;
+    width: 260px;
+    padding: 10px;
+}
+
+.trade-sidebar__title {
+    color: #FFFFFF;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 50px;
+    margin-top: 10px;
+}
+
+.trade-sidebar__list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.trade-sidebar__item {
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 200px;
+}
+
+.trade-sidebar__link {
+    display: block;
+    background-color: #EEEFEB;
+    color: #000;
+    text-decoration: none;
+    border-radius: 5px;
+    padding: 8px 10px;
+    font-size: 24pxpx;
+    text-align: center;
+    transition: background 0.2s ease;
+}
+
+.trade-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.trade-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 40px;
+    border-bottom: 2px #5F5F5F solid;
+    align-items: center;
+}
+
+.trade-header__profile {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.trade__profile-avatar {
+    width: 80px;
+    height: 80px;
+    background-color: #D9D9D9;
+    border-radius: 50px;
+}
+
+.avatar-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.trade__profile-name {
+    font-size: 36px;
+    color: black;
+    font-weight: 700;
+}
+
+.trade-header button {
+    background-color: #FF8282;
+    color: #FFFFFF;
+    border-radius: 30px;
+    border: none;
+    padding: 5px 20px;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.trade-product {
+    padding: 15px 40px;
+    display: flex;
+    gap: 40px;
+    border-bottom: 2px #5F5F5F solid;
+}
+
+.trade-product img {
+    width: 200px;
+    height: 200px;
+    background-color: #D9D9D9;
+    object-fit: cover;
+}
+
+.trade-product__name {
+    font-size: 48px;
+    font-weight: 700;
+    margin: 20px 0;
+}
+
+.trade-product__price {
+    font-size: 36px;
+    font-weight: 400;
+}
+
+
+
+.trade-chat {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.trade-message {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    max-width: 50%;
+}
+
+.trade-message.left {
+    justify-content: flex-start;
+}
+
+.trade-message.right {
+    justify-content: flex-end;
+    margin-left: auto;
+}
+
+.trade-chat__avatar {
+    width: 60px;
+    height: 60px;
+    background-color: #D9D9D9;
+    border-radius: 50px;
+    flex-shrink: 0;
+}
+
+.chat-avatar-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.trade-chat__body {
+    display: flex;
+    flex-direction: column;
+    margin: 0 10px;
+    max-width: 100%;
+}
+
+.trade-chat__name {
+    font-size: 20px;
+    font-weight: 700;
+    padding: 15px 0;
+}
+
+.trade-chat__name.right {
+    text-align: right;
+}
+
+.trade-chat__border {
+    background: #d9d9d9;
+    border-radius: 8px;
+    padding: 8px 12px;
+    display: inline-block;
+    word-wrap: break-word;
+}
+
+.message-text {
+    margin-bottom: 5px;
+    /* 画像との間隔 */
+}
+
+.chat-image {
+    display: block;
+    max-width: 100%;
+}
+
+.trade-input-area {
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px 10px 10px;
+    background-color: #fff;
+    right: 0;
+}
+
+.trade-input-area input {
+    width: 75%;
+    font-size: 20px;
+    font-weight: 700;
+    padding: 6px 20px;
+    border-radius: 4px;
+    border: 1px #5F5F5F solid;
+    margin: 20px;
+}
+
+.error-messages {
+    color: red;
+    background-color: #EEEFEB;
+    font-size: 20px;
+    padding: 3px 20px;
+}
+
+.trade__image-button {
+    border: 2px #FF5555 solid;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #FF5555;
+    background-color: white;
+    padding: 5px 20px;
+    cursor: pointer;
+}
+
+.trade__send-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.trade__send-button img.send-icon {
+    width: 80px;
+    height: 61px;
+}
+
+.message-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+.edit-btn,
+.delete-btn {
+    color: #5F5F5F;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    background-color: #fff;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.hidden {
+    display: none;
+}
+
+.modal-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+
+/* 中身のコンテンツ */
+.modal-content {
+    position: relative;
+    background: #FDFCE6;
+    border-radius: 10px;
+    max-width: 600px;
+    width: 100%;
+    z-index: 200;
+    border: 1px black solid;
+}
+
+.modal-content__title {
+    font-size: 40px;
+    border-bottom: 1px solid black;
+    padding: 10px 20px;
+}
+
+.modal-content__text {
+    font-size: 20px;
+    color: #868686;
+    padding: 10px 20px;
+}
+
+.stars {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    border-bottom: 1px black solid;
+}
+
+.star {
+    font-size: 100px;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.star.selected {
+    color: #FFF048;
+}
+
+.star:hover,
+.star:hover~.star {
+    color: #FFF048;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.modal-buttons button{
+    font-size: 24px;
+    color: #FFFFFF;
+    background-color: #FF8282;
+    margin: 20px;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.error-messages p {
+    margin: 0 0 4px 0;
+}

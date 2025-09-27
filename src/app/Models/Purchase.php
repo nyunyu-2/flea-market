@@ -21,4 +21,13 @@ class Purchase extends Model
         return $this->belongsTo(\App\Models\Item::class);
     }
 
+    public function trade()
+    {
+        return $this->hasOne(Trade::class);
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(TradeMessage::class);
+    }
 }
