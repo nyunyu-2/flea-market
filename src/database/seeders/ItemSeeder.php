@@ -16,13 +16,14 @@ class ItemSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::factory()->create();
+        $yamada = User::where('email', 'yamada@example.com')->first();
+        $suzuki = User::where('email', 'suzuki@example.com')->first();
 
         $categories = \App\Models\Category::all();
 
         $items = [
             [
-                'user_id' => 1,
+                'user_id' => $yamada->id,
                 'name' => '腕時計',
                 'brand' =>'TOKEI',
                 'price' => 15000,
@@ -31,7 +32,7 @@ class ItemSeeder extends Seeder
                 'status' => '良好',
             ],
             [
-                'user_id' => 1,
+                'user_id' => $yamada->id,
                 'name' => 'HDD',
                 'brand' =>'ハードディスク',
                 'price' => 5000,
@@ -40,7 +41,7 @@ class ItemSeeder extends Seeder
                 'status' => '目立った傷や汚れなし',
             ],
             [
-                'user_id' => 1,
+                'user_id' => $yamada->id,
                 'name' => '玉ねぎ3束',
                 'brand' =>'野菜',
                 'price' => 300,
@@ -49,7 +50,7 @@ class ItemSeeder extends Seeder
                 'status' => 'やや傷や汚れあり',
             ],
             [
-                'user_id' => 1,
+                'user_id' => $yamada->id,
                 'name' => '革靴',
                 'brand' =>'くつ',
                 'price' => 4000,
@@ -58,7 +59,7 @@ class ItemSeeder extends Seeder
                 'status' => '状態が悪い',
             ],
             [
-                'user_id' => 1,
+                'user_id' => $yamada->id,
                 'name' => 'ノートPC',
                 'brand' =>'DELL',
                 'price' => 45000,
@@ -67,7 +68,7 @@ class ItemSeeder extends Seeder
                 'status' => '良好',
             ],
             [
-                'user_id' => 2,
+                'user_id' => $suzuki->id,
                 'name' => 'マイク',
                 'brand' =>'YAMAHA',
                 'price' => 8000,
@@ -76,7 +77,7 @@ class ItemSeeder extends Seeder
                 'status' => '目立った傷や汚れなし',
             ],
             [
-                'user_id' => 2,
+                'user_id' => $suzuki->id,
                 'name' => 'ショルダーバッグ',
                 'brand' =>'UNIQLO',
                 'price' => 3500,
@@ -85,7 +86,7 @@ class ItemSeeder extends Seeder
                 'status' => 'やや傷や汚れあり',
             ],
             [
-                'user_id' => 2,
+                'user_id' => $suzuki->id,
                 'name' => 'タンブラー',
                 'brand' =>'ニトリ',
                 'price' => 2000,
@@ -94,7 +95,7 @@ class ItemSeeder extends Seeder
                 'status' => '状態が悪い',
             ],
             [
-                'user_id' => 2,
+                'user_id' => $suzuki->id,
                 'name' => 'コーヒーミル',
                 'brand' =>'ニトリ',
                 'price' => 3000,
@@ -103,7 +104,7 @@ class ItemSeeder extends Seeder
                 'status' => '良好',
             ],
             [
-                'user_id' => 2,
+                'user_id' => $suzuki->id,
                 'name' => 'メイクセット',
                 'brand' =>'DIOR',
                 'price' => 2500,
