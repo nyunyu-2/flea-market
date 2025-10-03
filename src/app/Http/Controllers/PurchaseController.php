@@ -153,28 +153,33 @@ class PurchaseController extends Controller
 
         $userId = auth()->id();
 
+        // 購入者が評価 → 出品者への評価
         if ($userId === $purchase->user_id) {
-            $purchase->buyer_rating = $request->rating;
-            $purchase->buyer_comment = $request->comment;
-            $purchase->status = 'buyer_completed';
-
-            $purchase->save();
-
-            Mail::to($purchase->item->user->email)
-                ->send(new TradeCompletedMail($purchase));
-        }
-        elseif ($userId === $purchase->item->user_id) {
-            if ($purchase->status === 'buyer_completed' && is_null($purchase->seller_rating)) {
+            if (is_null($purchase->seller_rating)) {
                 $purchase->seller_rating = $request->rating;
                 $purchase->seller_comment = $request->comment;
-                // 評価が完了したら status を completed に変更
-                $purchase->status = 'completed';
+                $purchase->status = 'buyer_completed';
+
+                $purchase->save();
+
+                // 出品者に通知メール送信
+                Mail::to($purchase->item->user->email)
+                    ->send(new TradeCompletedMail($purchase));
+            } else {
+                abort(403, '既に評価済みです。');
+            }
+        }
+        // 出品者が評価 → 購入者への評価
+        elseif ($userId === $purchase->item->user_id) {
+            if ($purchase->status === 'buyer_completed' && is_null($purchase->buyer_rating)) {
+                $purchase->buyer_rating = $request->rating;
+                $purchase->buyer_comment = $request->comment;
+                $purchase->status = 'completed'; // 両者評価済み
+
                 $purchase->save();
             } else {
                 abort(403, '評価できません。');
             }
-
-            $purchase->save();
         } else {
             abort(403, 'この取引の関係者ではありません。');
         }

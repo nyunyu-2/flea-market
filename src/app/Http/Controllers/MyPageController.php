@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Item;
 use App\Models\Trade;
+use App\Models\Purchase;
+
 
 use App\Http\Requests\ProfileRequest;
 
@@ -27,19 +29,17 @@ class MyPageController extends Controller
         $tradingItems = collect();
 
         $purchasesTrading = $user->purchases()
-            ->where('status', ['trading', 'buyer_completed'])
-            ->with('item', 'trade.messages')
+            ->whereIn('status', ['trading', 'buyer_completed'])
             ->get();
 
-        $sellingTrading = Trade::with('purchase.item', 'messages')
-            ->whereHas('purchase', function($q) use ($user) {
-                $q->whereHas('item', fn($iq) => $iq->where('user_id', $user->id))
-                ->where(function($q2) {
-                    $q2->where('status', 'trading')
-                        ->orWhere(function($q3) {
-                            $q3->where('status', 'buyer_completed')
-                                ->whereNull('seller_rating');
-                        });
+        $sellingTrading = Purchase::whereHas('item', function($q) use ($user) {
+                $q->where('user_id', $user->id);
+            })
+            ->where(function($q) {
+                $q->where('status', 'trading')
+                ->orWhere(function($q2) {
+                    $q2->where('status', 'buyer_completed')
+                        ->whereNull('buyer_rating'); // ここポイント！
                 });
             })
             ->get();
@@ -67,12 +67,15 @@ class MyPageController extends Controller
             $tradeOrPurchase->unread_count = $trade
                 ? $trade->messages()->where('user_id', '<>', $user->id)->whereNull('read_at')->count()
                 : 0;
+
+            $tradeOrPurchase->latest_message_at = $trade
+                ? $trade->messages()->latest('created_at')->value('created_at')
+                : null;
         }
 
-        // --- 未読件数合計 ---
         $totalUnreadCount = $tradingItems->sum(fn($tradeOrPurchase) => $tradeOrPurchase->unread_count ?? 0);
+        $tradingItems = $tradingItems->sortByDesc('latest_message_at');
 
-        // --- ページごとのアイテム取得 ---
         if ($page === 'sell') {
             $soldItems = $user->products()->latest()->get();
         } elseif ($page === 'buy') {

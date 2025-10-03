@@ -71,7 +71,9 @@ class TradeController extends Controller
 
         $message->load('user');
 
-        return response()->json($message);
+        return redirect()
+            ->back()
+            ->with('success', 'メッセージを送信しました');
     }
 
     public function update(Request $request, $id)

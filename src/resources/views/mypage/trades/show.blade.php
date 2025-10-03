@@ -39,11 +39,11 @@
                         <div class="trade__profile-avatar">
                             @if($partner && $partner->profile_image)
                                 <img src="{{ asset('storage/' . $partner->profile_image) }}" 
-                                    alt="{{ $partner->username }}のアイコン" 
+                                    alt="{{ $partner->username }}" 
                                     class="avatar-img">
                             @else
                                 <img src="{{ asset('images/default-avatar.png') }}" 
-                                    alt="デフォルトアイコン" 
+                                    alt="" 
                                     class="avatar-img">
                             @endif
                         </div>
@@ -78,7 +78,7 @@
                                             <div class="message-text">{{ $msg->message }}</div>
                                         @endif
                                         @if($msg->image_path)
-                                            <img src="{{ asset('storage/' . $msg->image_path) }}" class="chat-image"style="max-width:300px;">
+                                            <img src="{{ asset('storage/' . $msg->image_path) }}" class="chat-image">
                                         @endif
                                     </div>
                                     <div class="message-actions">
@@ -87,13 +87,13 @@
                                     </div>
                                 </div>
                                 <div class="trade-chat__avatar">
-                                    <img src="{{ $msg->user->profile_image ? asset('storage/' . $msg->user->profile_image) : asset('images/default-avatar.png') }}" alt="avatar" class="chat-avatar-img">
+                                    <img src="{{ $msg->user->profile_image ? asset('storage/' . $msg->user->profile_image) : asset('images/default-avatar.png') }}" alt="" class="chat-avatar-img">
                                 </div>
                             </div>
                         @else
                             <div class="trade-message left">
                                 <div class="trade-chat__avatar">
-                                    <img src="{{ $msg->user->profile_image ? asset('storage/' . $msg->user->profile_image) : asset('images/default-avatar.png') }}" alt="avatar" class="chat-avatar-img">
+                                    <img src="{{ $msg->user->profile_image ? asset('storage/' . $msg->user->profile_image) : asset('images/default-avatar.png') }}" alt="" class="chat-avatar-img">
                                 </div>
                                 <div class="trade-chat__body">
                                     <div class="trade-chat__name left">{{ $msg->user->username }}</div>
@@ -102,7 +102,7 @@
                                             <div class="message-text">{{ $msg->message }}</div>
                                         @endif
                                         @if($msg->image_path)
-                                            <img src="{{ asset('storage/' . $msg->image_path) }}" class="chat-image" style="max-width:300px;">
+                                            <img src="{{ asset('storage/' . $msg->image_path) }}" class="chat-image">
                                         @endif
                                     </div>
                                 </div>
@@ -110,14 +110,27 @@
                         @endif
                     @endforeach
                 </div>
-                <div class="trade-input-area">
-                    <input type="text" name="message" id="chatInput" placeholder="取引メッセージを入力してください">
-                    <button type="button" class="trade__image-button"id="imageButton">画像を追加</button>
-                    <input type="file" name="image" id="imageInput" accept="image/*" style="display:none;">
-                    <button type="submit" class="trade__send-button" id="sendButton">
-                        <img src="{{ asset('images/send.jpg') }}" alt="送信" class="send-icon">
-                    </button>
-                </div>
+                <form action="{{ route('trade.messages.store', $purchase->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+
+                    @if ($errors->any())
+                        <div class="error-messages">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <div class="trade-input-area">
+                        <input type="text" name="message" id="chatInput" data-trade-id="{{ $trade->id }}" placeholder="取引メッセージを入力してください">
+                        <button type="button" class="trade__image-button"id="imageButton">画像を追加</button>
+                        <input type="file" name="image" id="imageInput" accept="image/*" style="display:none;">
+                        <button type="submit" class="trade__send-button" id="sendButton">
+                            <img src="{{ asset('images/send.jpg') }}" alt="送信" class="send-icon">
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </main>
@@ -144,7 +157,7 @@
         </div>
     </div>
     {{-- 出品者の評価モーダル --}}
-    @if($purchase->item->user_id === $loginUserId && $purchase->status === 'buyer_completed' && is_null($purchase->seller_rating))
+    @if($purchase->item->user_id === $loginUserId && $purchase->status === 'buyer_completed' && is_null($purchase->buyer_rating))
         <div id="sellerRatingModal" class="modal">
             <div class="modal-overlay"></div>
             <div class="modal-content">
@@ -203,7 +216,7 @@
             contentHtml += `<div class="message-text">${data.message}</div>`;
         }
         if (data.image_path) {
-            contentHtml += `<img src="/storage/${data.image_path}" class="chat-image" style="max-width:300px;">`;
+            contentHtml += `<img src="/storage/${data.image_path}" class="chat-image">`;
         }
         contentHtml += '</div>';
 
@@ -218,7 +231,7 @@
                 </div>` : ''}
             </div>
             <div class="trade-chat__avatar">
-                <img src="${avatarUrl}" alt="avatar" class="chat-avatar-img">
+                <img src="${avatarUrl}" alt="" class="chat-avatar-img">
             </div>
         `;
         chat.appendChild(msg);
@@ -385,6 +398,34 @@
             });
         });
     });
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const input = document.getElementById("chatInput");
+        if (!input) return;
+
+        const tradeId = input.dataset.tradeId;
+        const storageKey = `chat_draft_${tradeId}`;
+
+        // ページ読み込み時に復元
+        const savedDraft = sessionStorage.getItem(storageKey);
+        if (savedDraft) {
+            input.value = savedDraft;
+        }
+
+        // 入力のたびに保存
+        input.addEventListener("input", () => {
+            sessionStorage.setItem(storageKey, input.value);
+        });
+
+        // 送信したら下書きを削除
+        const sendBtn = document.getElementById("sendButton");
+        if (sendBtn) {
+            sendBtn.addEventListener("click", () => {
+                sessionStorage.removeItem(storageKey);
+            });
+        }
+    });
+
 
 </script>
 
